@@ -1,0 +1,43 @@
+﻿@page
+@model GestionInventario.Pages.CategoriasModel
+@{
+    ViewData["Title"] = "Gestor de categorias";
+}
+
+<h2>Categorías</h2>
+
+<div class="row">
+    <div class="col-md-12 d-flex justify-content-end align-content-center">
+        <button onclick="location.href='/ManageCategorias'" class="btn btn-primary" type="button">Agregar Nueva Categoria</button>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h3>Categorias Disponibles</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripcion</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var categoria in Model.Categorias)
+                {
+                    <tr>
+                        <td>@categoria.Nombre</td>
+                        <td>@categoria.Descripcion</td>
+                        <td class="d-flex flex-row gap-2">
+                            <a href="/EditCategoria/@categoria.Id" class="btn btn-success">Editar</a>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@categoria.Id" onsubmit="return confirm('¿Estás seguro de querer eliminar esta categoria?');">
+                                <button type="submit" class="btn btn-danger">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+</div>

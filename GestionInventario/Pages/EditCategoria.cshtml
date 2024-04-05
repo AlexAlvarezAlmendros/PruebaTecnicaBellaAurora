@@ -1,0 +1,21 @@
+﻿@page "{id:int}"
+@model GestionInventario.Pages.EditCategoriaModel
+@{
+}
+<h2>Editar Categoría</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Categoria.Id" />
+    <input type="hidden" asp-for="Categoria.Productos" />
+    <div class="form-group">
+        <label asp-for="Categoria.Nombre" class="control-label"></label>
+        <input asp-for="Categoria.Nombre" class="form-control" />
+        <span asp-validation-for="Categoria.Nombre" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Categoria.Descripcion" class="control-label"></label>
+        <input asp-for="Categoria.Descripcion" class="form-control" />
+        <span asp-validation-for="Categoria.Descripcion" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Editar" class="btn btn-primary" />
+</form>

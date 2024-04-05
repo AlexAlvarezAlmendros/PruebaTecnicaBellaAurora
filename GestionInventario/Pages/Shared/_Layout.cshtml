@@ -1,0 +1,62 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GestionInventario</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/GestionInventario.styles.css" asp-append-version="true" />
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3">
+            <div class="container d-flex justify-content-around align-content-around">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M13 13L5 9V18L13 22V13Z" fill="transparent" stroke="#FF7373" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M13 22L21 18V9L13 13V22Z" fill="transparent" stroke="#FF7373" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M5 9L13 5L11 2L3 6L5 9Z" fill="transparent" stroke="#FF7373" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M17.5 7.25L12 10L13 13L5 9L13 5L17.5 7.25Z" fill="transparent" stroke="#FF7373" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M13 13L21 9L20 6L12 10L13 13Z" fill="transparent" stroke="#FF7373" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+
+                <a class="navbar-brand py-3 whiteText" asp-area="" asp-page="/Index"><B>GestionInventario</B></a>
+
+                <div class="navbar-collapse collapse d-flex justify-content-end">
+                    <ul class="navbar-nav flex-grow-1 d-flex justify-content-end">
+                        <li class="nav-item">
+                            <a class="nav-link whiteText" asp-area="" asp-page="/Index"><b>Inventario</b></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link whiteText" asp-area="" asp-page="/Categorias"><b>Categorias</b></a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2024 - GestionInventario - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
