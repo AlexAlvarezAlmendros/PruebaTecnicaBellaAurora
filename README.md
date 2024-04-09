@@ -51,3 +51,16 @@ En el archivo `appsettings.json`, ajusta la cadena de conexión `DefaultConnecti
 
 
 
+## Contenido del Proyecto
+
+- **Pages**: Contiene las Razor Pages organizadas por funcionalidad (`Productos`, `Categorias`, `Transacciones`).
+  - **Productos**: Páginas para listar, añadir, editar y eliminar productos.
+  - **Categorias**: Páginas para listar, añadir, editar y eliminar categorías de productos.
+  - **Transacciones**: (Opcional) Páginas para visualizar y gestionar transacciones de inventario.
+- **Models**: Modelos de entidades como `Producto`, `Categoria`, y `Transaccion`.
+- **Data**: Incluye el `AppDbContext` para la configuración de Entity Framework Core.
+- **Services**: (Opcional) Servicios de aplicación para lógica de negocio compleja.
+- **wwwroot**: Archivos estáticos como CSS personalizado, JavaScript y imágenes.
+
+
+
