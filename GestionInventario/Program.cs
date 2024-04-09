@@ -1,6 +1,9 @@
 
 
 using GestionInventario.BBDD;
+using GestionInventario.Entities;
+using GestionInventario.Interfaces;
+using GestionInventario.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -10,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddDbContext<AppDbContext>(options =>
         options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddScoped<IRepository<Producto>, ProductoRepository>();
+builder.Services.AddScoped<IRepository<Categoria>, CategoriaRepository>();
 
 var app = builder.Build();
 

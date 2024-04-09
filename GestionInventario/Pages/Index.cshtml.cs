@@ -1,38 +1,37 @@
-﻿using GestionInventario.BBDD;
-using GestionInventario.Entities;
+﻿using GestionInventario.Entities;
+using GestionInventario.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
 
 namespace GestionInventario.Pages
 {
 	public class IndexModel : PageModel
 	{
-        private readonly AppDbContext _context;
+        private readonly IRepository<Producto> _productoRepository;
 
-        public IndexModel(AppDbContext context)
+        public IndexModel(IRepository<Producto> productoRepository)
         {
-            _context = context;
+            _productoRepository = productoRepository;
         }
 
         public List<Producto> Productos { get; set; }
 
         public async Task OnGetAsync()
         {
-            Productos = await _context.Productos.Include(p => p.Categoria).ToListAsync();
+            Productos = await _productoRepository.GetAllAsync();
         }
 
         public async Task<IActionResult> OnPostDeleteAsync(int id)
         {
-            var product = await _context.Productos.FindAsync(id);
-            if (product != null)
+            bool success = await _productoRepository.DeleteAsync(id);
+            if (success)
             {
-                _context.Productos.Remove(product);
-                await _context.SaveChangesAsync();
+                return RedirectToPage();
             }
-
-            return RedirectToPage();
+            else {
+                //Todo: "No se ha podido eliminar el producto"
+                return RedirectToPage();
+            }
         }
-
     }
 }

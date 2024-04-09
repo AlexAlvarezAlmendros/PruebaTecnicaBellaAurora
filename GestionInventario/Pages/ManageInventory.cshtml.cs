@@ -1,5 +1,7 @@
 using GestionInventario.BBDD;
 using GestionInventario.Entities;
+using GestionInventario.Interfaces;
+using GestionInventario.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -8,11 +10,13 @@ namespace GestionInventario.Pages
 {
     public class ManageInventoryModel : PageModel
     {
-        private readonly AppDbContext _context;
+        private readonly IRepository<Producto> _productoRepository;
+        private readonly IRepository<Categoria> _categoriaRepository;
 
-        public ManageInventoryModel(AppDbContext context)
+        public ManageInventoryModel(IRepository<Producto> productoRepository, IRepository<Categoria> categoriaRepository)
         {
-            _context = context;
+            _productoRepository = productoRepository;
+            _categoriaRepository = categoriaRepository;
         }
 
         [BindProperty]
@@ -20,17 +24,15 @@ namespace GestionInventario.Pages
 
         public List<Categoria> Categorias { get; set; }
 
-        public void OnGet()
+        public async void OnGet()
         {
-            Categorias = _context.Categorias.ToList();
+            Categorias = await _categoriaRepository.GetAllAsync();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                // Vuelve a cargar las categorías para la vista en caso de falla de validación
-                Categorias = await _context.Categorias.ToListAsync();
                 return Page();
             }
 
@@ -42,9 +44,7 @@ namespace GestionInventario.Pages
                 Precio = Product.Precio,
                 CategoriaId = Product.CategoriaId
             };
-
-            _context.Productos.Add(producto);
-            await _context.SaveChangesAsync();
+            await _productoRepository.AddAsync(producto);
 
             return RedirectToPage("./Index");
         }

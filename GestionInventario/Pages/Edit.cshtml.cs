@@ -1,5 +1,7 @@
 using GestionInventario.BBDD;
 using GestionInventario.Entities;
+using GestionInventario.Interfaces;
+using GestionInventario.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -8,11 +10,13 @@ namespace GestionInventario.Pages
 {
     public class EditModel : PageModel
     {
-        private readonly AppDbContext _context;
+        private readonly IRepository<Producto> _productoRepository;
+        private readonly IRepository<Categoria> _categoriaRepository;
 
-        public EditModel(AppDbContext context)
+        public EditModel(IRepository<Producto> productoRepository, IRepository<Categoria> categoriaRepository)
         {
-            _context = context;
+            _productoRepository = productoRepository;
+            _categoriaRepository = categoriaRepository;
         }
 
         [BindProperty]
@@ -21,21 +25,21 @@ namespace GestionInventario.Pages
         public List<Categoria> Categorias { get; set; }
 
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
 
-            Producto tmpproduct = await _context.Productos.FindAsync(id);
+            Producto tmpproduct = await _productoRepository.GetByIdAsync(id);
 
             if (tmpproduct == null)
             {
                 return NotFound();
             }
 
-            Categorias = _context.Categorias.ToList();
+            Categorias = await _categoriaRepository.GetAllAsync();
             Product = new ProductoViewModel
             {
                 Id = tmpproduct.Id,
@@ -65,26 +69,8 @@ namespace GestionInventario.Pages
                 CategoriaId = Product.CategoriaId
             };
 
-            _context.Attach(producto).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Productos.Any(e => e.Id == producto.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            await _productoRepository.UpdateAsync(producto);
             return RedirectToPage("./Index");
-
         }
     }
 }

@@ -1,5 +1,7 @@
 using GestionInventario.BBDD;
 using GestionInventario.Entities;
+using GestionInventario.Interfaces;
+using GestionInventario.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -7,11 +9,11 @@ namespace GestionInventario.Pages
 {
     public class ManageCategoriasModel : PageModel
     {
-        private readonly AppDbContext _context;
+        private readonly IRepository<Categoria> _categoriaRepository;
 
-        public ManageCategoriasModel(AppDbContext context)
+        public ManageCategoriasModel(IRepository<Categoria> categoriaRepository)
         {
-            _context = context;
+            _categoriaRepository = categoriaRepository;
         }
 
         [BindProperty]
@@ -24,8 +26,7 @@ namespace GestionInventario.Pages
                 return Page();
             }
 
-            _context.Categorias.Add(Categoria);
-            await _context.SaveChangesAsync();
+            await _categoriaRepository.AddAsync(Categoria);
 
             return RedirectToPage("./Categorias");
         }
