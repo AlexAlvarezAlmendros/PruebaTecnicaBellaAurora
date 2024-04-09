@@ -17,20 +17,20 @@ Para ejecutar este proyecto localmente, necesitarás tener instalado .NET 6 SDK,
 1. **Clonar el Repositorio**
 
    Abre una terminal y clona el repositorio utilizando Git:
-```
-git clone https://github.com/tu-usuario/gestor-de-inventario.git
-cd gestor-de-inventario
-```
+   ```
+   git clone https://github.com/tu-usuario/gestor-de-inventario.git
+   cd gestor-de-inventario
+   ```
 
 2. **Configurar la Cadena de Conexión a la Base de Datos**
 
-En el archivo `appsettings.json`, ajusta la cadena de conexión `DefaultConnection` para apuntar a tu instancia local de SQL Server:
-
-```json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=GestorInventarioDb;Trusted_Connection=True;MultipleActiveResultSets=true"
-}
-```
+   En el archivo `appsettings.json`, ajusta la cadena de conexión `DefaultConnection` para apuntar a tu instancia local de SQL Server:
+   
+   ```json
+   "ConnectionStrings": {
+     "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=GestorInventarioDb;Trusted_Connection=True;MultipleActiveResultSets=true"
+   }
+   ```
 3. **Aplicar Migraciones de EF Core para Configurar la Base de Datos**
    
    Utiliza la CLI de .NET Core para aplicar migraciones y crear la base de datos. Asegúrate de estar en el directorio del proyecto que contiene el archivo .csproj:
