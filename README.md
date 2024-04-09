@@ -39,15 +39,13 @@ Para ejecutar este proyecto localmente, necesitarás tener instalado .NET 6 SDK,
     dotnet ef database update
    ```
 
-   Si aún no has generado ninguna migración, primero ejecuta dotnet ef migrations add InitialCreate para generar una migración inicial basada en tus modelos.
-
 4. **Ejecutar la Aplicación**
 
    ```
    dotnet run
    ```
 
-   Esto iniciará el servidor localmente y la aplicación será accesible desde un navegador web en http://localhost:5000 o https://localhost:5001.
+   Esto iniciará el servidor localmente y la aplicación será accesible desde un navegador web.
 
 
 
